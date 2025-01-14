@@ -214,5 +214,8 @@ ip dhcp pool Concentrix.com
 ===============
 
 VMWARE Workstation
-
+Extract RSTHayup
+> VMWare1
+> username - root
+> password - C1sc0123
 
