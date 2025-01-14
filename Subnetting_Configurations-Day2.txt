@@ -1,0 +1,163 @@
+NORMAL NA TAO				IV4						IV6
+
+0-9  						0-255				 0-9, A-F
+3999					3.255.255.255			 :3fff
+4000					 4.0.0.0				  :4000
+4001					 4.0.0.1    			:4001
+
+
+7999					7.255.255.255			 :7fff
+8000					 7.0.0.0				  :8000
+8001					 7.0.0.1    			:8001
+
+
+5998					5.255.255.254			 :7ffe
+5999					 5.255.255.255			 :5fff
+6000				     6.0.0.0   			     :6000
+
+
+6908                    6.255.0.254               :6f0e
+6909					6.255.0.255				  :6f0f
+6910                    6.255.1.0                 :6f10
+
+
+7898                    7.254.255.254               :7efe
+7899					7.254.255.255				 :7eff
+7900                    7.255.0.0                 :7f00
+
+
+CIDR Classless Inter-Domain Routin
+
+/1 = 128.0.0.0
+/2 = 192.0.0.0
+/3 = 224.0.0.0
+/4 = 240.0.0.0
+/5 = 248.0.0.0
+/6 = 252.0.0.0
+/7 = 254.0.0.0
+/8 = 255.0.0.0 
+
+
+Bits
+195 = 8
+13 = 4
+1750 = 11
+855 = 10
+2700 = 12
+2 = 2
+376 = 9
+888 = 10
+8 = 4
+212 = 8
+4500 = 13
+81 = 7
+9000 = 14
+55 = 6
+29 = 5
+5 bits
+
+
+350 = 9
+39 = 6
+1500 = 11
+2 = 2
+2900 = 12
+
+/13 = 255.248.0.0 =  2nd Oct, 8i
+
+/18 = 255.255.192.0 = 3rd Oct, 64i
+
+/10 = 255.192.0.0 = (2nd 64i)
+
+Subnet Rivan Method:
+
+10.X.X.X = 16,777 Big Companies
+192.X.X.X = 254 host
+172.X.X.X = VPN Setup
+
+Ex.1 design/implement accenture.com using 10.0.0.0/8
+with 380 callcenterAgents, TLs, QAs, Pm.
+CSI = Convert , Subtract, iPasok
+Convert 380 = 9 Bits
+subtract /32 - /9 = /23 > 3rd Oct, 2i
+IPasok si 2i sa 3rd hiwa: 
+Accenture: 10.0.2.0/23 + 1 Network Address
+1stvalid: 10.0.2.1 1st VALID IP
+lastIP: 10.0.3.255 Last Broadcast IP 
+NOT accenture = 10.0.4.0/23 - 1
+
+***************
+
+Ex.2 design/implement Sykes.com using 10.0.0.0/8
+with 1500 callcenterAgents, TLs, QAs, Pm.
+
+Convert 1500 = 11 Bits
+Subtract /32 - /11 = /21 > 3rd Oct, 8i
+IPasok si 8i sa 3rd hiwa: 
+Sykes: 10.0.8.0/21 + 1 Network Address
+1stvalid: 10.0.8.1 1st VALID IP
+lastIP: 10.0.15.255 Last Broadcast IP 
+Not Sykes: 10.0.16.0
+
+***************
+
+Ex.3 design/implement Telus.com using 10.0.0.0/8
+with 2500 callcenterAgents, TLs, QAs, Pm.
+
+Convert 2000 = 12 Bits
+Subtract /32 - /12 = /20 > 3rd Oct, 16i
+IPasok si 16i sa 3rd hiwa: 
+Telus: 10.0.16.0/20 + 1 Network Address
+1stvalid: 10.0.16.1 1st VALID IP
+lastIP: 10.0.31.255 Last Broadcast IP 
+Not Telus: 10.0.32.0
+
+***************
+
+Ex.4 design/implement Concentrix.com using 10.0.0.0/8
+with 4800 callcenterAgents, TLs, QAs, Pm.
+
+Convert 4800 = 13 Bits
+Subtract /32 - /13 = /19 > 3rd Oct, 32i
+IPasok si 32i sa 3rd hiwa: 
+Telus: 10.0.32.0/20 + 1 Network Address
+1stvalid: 10.0.32.1 1st VALID IP
+lastIP: 10.0.32.255 Last Broadcast IP 
+Not Concentrix: 10.0.64.0
+
+***************
+
+Ex.4 design/implement PCSO.gov.ph using 10.0.0.0/8
+with 212 callcenterAgents, TLs, QAs, Pm.
+
+Convert 212 = 8 Bits
+Subtract /32 - /8 = /24 > 3rd Oct, 1i
+IPasok si 32i sa 3rd hiwa: 
+Telus: 10.0.1.0/1 + 1 Network Address
+1stvalid: 10.0.1.1 1st VALID IP
+lastIP: 10.0.1.255 Last Broadcast IP 
+Not PCSO.gov.ph: 10.0.2.0
+
+
+config t
+vlan 25
+ name Concentrix.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.32.0 255.255.255.0
+ip dhcp excluded-add 10.0.32.1 10.0.32.100
+ip dhcp pool Concentrix.com
+ network 10.0.32.0 255.255.255.0
+ default-router 10.0.32.1
+ domain-name Concentrix.com
+ dns-server 10.21.1.10
+ option 150 ip 10.21.100.8
+ Int Fa 0/7
+  swi Voice vlan 25
+  do sh ip dhcp binding
+
+
+
+
+
