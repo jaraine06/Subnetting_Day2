@@ -127,7 +127,7 @@ Not Concentrix: 10.0.64.0
 
 ***************
 
-Ex.4 design/implement PCSO.gov.ph using 10.0.0.0/8
+Ex.5 design/implement PCSO.gov.ph using 10.0.0.0/8
 with 212 callcenterAgents, TLs, QAs, Pm.
 
 Convert 212 = 8 Bits
@@ -138,18 +138,31 @@ Telus: 10.0.1.0/1 + 1 Network Address
 lastIP: 10.0.1.255 Last Broadcast IP 
 Not PCSO.gov.ph: 10.0.2.0
 
+***************
+
+Ex.6 design/implement Infosys.com using 10.0.0.0/8
+with 950 callcenterAgents, TLs, QAs, Pm.
+
+Convert 950 = 10 Bits
+Subtract /32 - /10 = /22 > 3rd Oct, 4i
+IPasok si 4i sa 3rd hiwa: 
+Infosys.com: 10.0.4.0/1 + 1 Network Address
+1stvalid: 10.0.4.1 1st VALID IP
+lastIP: 10.0.4.255 Last Broadcast IP 
+Not Infosys.com: 10.0.9.0
+
 
 config t
 vlan 25
- name Concentrix.com
+ name Infosys.com
  exit
 Int vlan 25
  no shut
- ip add 10.0.32.0 255.255.255.0
-ip dhcp excluded-add 10.0.32.1 10.0.32.100
+ ip add 10.0.4.0 255.255.252.0
+ip dhcp excluded-add 10.0.4.1 10.0.4.100
 ip dhcp pool Concentrix.com
- network 10.0.32.0 255.255.255.0
- default-router 10.0.32.1
+ network 10.0.4.0 255.255.252.0
+ default-router 10.0.4.1
  domain-name Concentrix.com
  dns-server 10.21.1.10
  option 150 ip 10.21.100.8
@@ -159,5 +172,47 @@ ip dhcp pool Concentrix.com
 
 
 
+/28 = 255.255.255.240 ( 4th Oc1, 16i)
+/22 = 255.255.252.0 ( 3rd Oct, 4i)
+/14 = 255.252.0.0 ( 2nd Oct, 4i)
+
+
+178 = 8
+12 =  4
+1600 = 11
+
+Ex.5 design/implement Peoplesoft.com using 10.0.0.0/8
+with 750 callcenterAgents, TLs, QAs, Pm.
+
+Convert 750 = 10 Bits
+Subtract /32 - /10 = /22 > 3rd Oct, 4i
+IPasok si 4i sa 3rd hiwa: 
+Peoplesoft.com: 10.0.4.0/22 + 1 Network Address
+1stvalid: 10.0.4.1 1st VALID IP
+lastIP: 10.0.7.255 Last Broadcast IP 
+Not Infosys.com: 10.0.8.0
+
+config t
+vlan 25
+ name Peoplesoft.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.4.0 255.255.252.0
+ip dhcp excluded-add 10.0.4.1 10.0.4.100
+ip dhcp pool Concentrix.com
+ network 10.0.4.0 255.255.252.0
+ default-router 10.0.4.1
+ domain-name Concentrix.com
+ dns-server 10.21.1.10
+ option 150 ip 10.21.100.8
+ Int Fa 0/7
+  swi Voice vlan 25
+  do sh ip dhcp binding
+
+
+===============
+
+VMWARE Workstation
 
 
