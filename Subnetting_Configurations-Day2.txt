@@ -251,3 +251,301 @@ Extract RSTHayup
 > username - root
 > password - C1sc0123
 
+
+
+===================
+
+
+@@@@DAY 5
+https://www.pearsonvue.com/us/en/cisco.html
+https://www.netacad.com/dashboard
+https://rivanca.com/elementor-850/#
+
+
+conf t 
+ip routing
+ip route 0.0.0.0 0.0.0.0 10.21.1.2
+end
+
+
+config t
+   hostname EDGE-21
+   enable secret pass
+   service password-encryption
+   no logging console
+   no ip domain-lookup
+   line console 0
+     password pass
+     login
+     exec-timeout 0 0
+    line vty 0 14
+      password pass
+      login
+      exec-timeout 0 0
+   Int Gi 0/0/0
+     description INSIDE
+     ip add 10.21.21.1 255.255.255.0
+	 no shutdown
+   Int Gi 0/0/1
+     description OUTSIDE
+	 ip add 200.0.0.21 255.255.255.0
+	 no shutdown
+   Int Loopback 0
+     description VIRTUALIP
+	 ip add 21.0.0.1 255.255.255.255
+ end
+ 
+ 
+ config t
+   hostname COREbaba21
+   enable secret pass
+   service password-encryption
+   no logging console
+   no ip domain-lookup
+   line console 0
+     password pass
+     login
+     exec-timeout 0 0
+    line vty 0 14
+      password pass
+      login
+      exec-timeout 0 0
+   Int Gi 0/1
+	description FiberOptic
+     no shutdown
+	  no switchport
+	  ip add 10.21.21.4 255.255.255.0
+   Int Vlan 1
+     no shutdown
+	 ip add 10.21.1.4 255.255.255.0
+	 description MGMTDATA
+   Int Vlan 10
+     no shutdown
+	 ip add 10.21.10.4 255.255.255.0
+	 description WIRELESS
+   Int Vlan 50
+     no shutdown
+	 ip add 10.21.50.4 255.255.255.0
+	 description IPCCTV
+   Int Vlan 100
+     no shutdown
+	 ip add 10.21.100.4 255.255.255.0
+	 description VOICEVLAN
+	 
+	 
+	 eabe:fcda:bada:cfad:eaea::4144:abde
+	 d0de:fafa:baba:caca:eaea::4646:a1dd
+	 
+	Ex1: Accenture will deploy ipv6 using cafe:cafe:cafe::/32, they will have 100 branch offices.
+	 compute for the first 8 offices.
+	 
+	  8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+
+	 CAI
+	 C = Convert to bits 
+	   = 100 = 7 bits
+	 A = Add to Original Slash = /32 + /7
+	 I = 
+	 1st = 0000
+	 2nd = 0200
+	 3rd = 0400
+	 4th = 0600
+	 5th = 0800
+	 6th = 0A00
+	 7th = 0C00
+	 8th = 0E00
+	 9th = 1000
+	 10th = 1200
+	 
+	 @@@@@@@@@@@@@@@@@@@@@
+	 
+	Ex2: Sykes will deploy ipv6 using cafe:cafe:cafe::/32, they will have 25 branch offices.
+	 compute for the first 8 offices.
+	 
+	  8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 25 = 5 bits
+	 A = Add to Original Slash = /25 + /5
+	 I = Increase
+	 1st = 0000
+	 2nd = 0800
+	 3rd = 1000
+	 4th = 1800
+	 5th = 2000
+	 6th = 2800
+	 7th = 3000
+	 8th = 3800
+	 
+	 @@@@@@@@@@@@@@@@@@@@@
+	 
+	Ex3: Telus will deploy ipv6 using face:face:face:fafa::/64, they will have 1300 branch offices.
+	 compute for the first 1300 offices.
+	 
+	 8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 1300 = 11 bits
+	 A = Add to Original Slash = /64
+	   = /1300 + /11 = 1311
+	 I = Increase
+	 1st = 0000
+	 2nd = 0020
+	 3rd = 0040
+	 4th = 0060
+	 5th = 0080
+	 6th = 00a0
+	 7th = 00c0
+	 8th = 00e0
+	 9th = 0100
+	 
+	 @@@@@@@@@@@@@@@@@@@@@
+	 
+	Ex4: VXI will deploy ipv6 using face:face:face:fafa::/64, they will have 750 branch offices.
+	 compute for the first 750 offices.
+	 
+	 8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 750 = 10 bits
+	 A = Add to Original Slash = /64
+	   = /64 + /10 = 74
+	 I = Increase
+	 1st = 0000
+	 2nd = 0040
+	 3rd = 0080
+	 4th = 00C0
+	 5th = 0100
+	 6th = 0140
+	 7th = 0180
+	 8th = 01C0
+	 9th = 0200
+	 
+	@@@@@@@@@@@@@@@@@@@@@
+	
+	Ex5: VXI will deploy ipv6 using face:face:face:fafa::/64, they will have 750 branch offices.
+	 compute for the first 750 offices.
+	 
+	 8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 750 = 10 bits
+	 A = Add to Original Slash = /64
+	   = /64 + /10 = 74
+	 I = Increase
+	 1st = 0000
+	 2nd = 0040
+	 3rd = 0080
+	 4th = 00C0
+	 5th = 0100
+	 6th = 0140
+	 7th = 0180
+	 8th = 01C0
+	 9th = 0200
+	 
+	@@@@@@@@@@@@@@@@@@@@@
+	
+	Ex6: VXI will deploy ipv6 using face:face:face:fafa::/64, they will have 4500 branch offices.
+	 compute for the first 750 offices.
+	 
+	 8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 4500 = 13 bits
+	 A = Add to Original Slash = /64
+	   = /64 + /13 = 77
+	 I = Increase
+	 1st = 0000
+	 2nd = 0008
+	 3rd = 0018
+	 4th = 0020
+	 5th = 0028
+	 6th = 0030
+	 7th = 0038
+	 8th = 0040
+	 9th = 0048
+		
+	@edge
+	conf t
+	ipv6 unicast-routing
+	int lo0
+	ipv6 address face:face:fafa:fafa:0000::a/77
+	int lo1
+	ipv6 address face:face:fafa:fafa:0008::a/77
+	int lo2
+	ipv6 address face:face:fafa:fafa:0018::a/77
+	int lo3
+	ipv6 address face:face:fafa:fafa:0020::a/77
+	int lo4
+	ipv6 address face:face:fafa:fafa:0028::a/77
+	int lo5
+	ipv6 address face:face:fafa:fafa:0030::a/77
+	int lo6
+	ipv6 address face:face:fafa:fafa:0038::a/77
+	int lo7
+	ipv6 address face:face:fafa:fafa:0040::a/77
+	int lo8
+	ipv6 address face:face:fafa:fafa:0048::a/77
+	
+	end
+	
+	
+	
+	@@@@@@@@@@@@@@@@@@@@@
+	
+	Ex6: ACME will deploy ipv6 using cafe:face:face:fafa::/56, they will have 5 branch offices.
+	 compute for the first 5 offices.
+	 
+	 8 4 2 1 |  8 4 2 1 | 8 4 2 1 | 8 4 2 1
+	 
+	 CAI
+	 C = Convert to bits 
+	   = 5 = 3 bits
+	 A = Add to Original Slash = /56
+	   = /56 + /3 = 59
+	 I = Increase
+	 1st = 0000
+	 2nd = 2000
+	 3rd = 4000
+	 4th = 6000
+	 5th = 8000
+
+	 
+	 	conf t
+	ipv6 unicast-routing
+	int lo0
+	ipv6 address cafe:face:face:fa00::a/77
+	int lo
+	ipv6 address cafe:face:face:fa20::a/77
+	int lo2
+	ipv6 address cafe:face:face:fa40::a/77
+	int lo3
+	ipv6 address cafe:face:face:fa60::a/77
+	int lo4
+	ipv6 address cafe:face:face:fa80::a/77
+	int lo5
+	ipv6 address cafe:face:face:fa0::a/77
+		end
+		
+		
+	config t
+Int Range fa0/10
+ shutdown
+ switchport trunk Encap Dot1Q
+ switchport mode trunk
+ switchport trunk allowed vlan 1-100
+ no shut
+
+
+config t
+spanning-tree vlan 1-999
+end
+
+
+
+
